@@ -1,15 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Baraja
 {
-	char carta[30];
+	int dato;
 	int cima;
 };
 
-int cartas(struct Baraja *baraja, char carta[])
+struct Lista
 {
-	baraja->carta[baraja->cima]=carta;
+	string carta;	
+	int fin;
+	string *cnombre;	
+};
+
+int agregarCartas(struct Lista *cartas, string carta)
+{
+	int *tmp;
+
+	if(lista==NULL)
+	{
+		return -1;
+	}
+	
+	tmp = (int *)malloc((lista->fin*2)*sizeof(int));
+	
+	if(tmp==NULL)
+	{
+		return 0;
+	}
+
+	*(tmp + (lista->fin))=carta;
+
+	for(int i=0;i<lista->fin;i++)
+	{
+		*(tmp + i) = *(lista->datos + i);
+	}
+
+	free(lista->datos);
+	lista->datos=tmp;
+	lista->fin++;
+
+	return 0;	
+}
+
+int posiciones(struct Baraja *baraja, int dato)
+{
+	baraja->dato[baraja->cima]=dato;
 	baraja->cima++;
 }
 
@@ -22,16 +60,16 @@ void barajeo(struct Baraja *baraja)
 	for(int i=0;i<=52;i++)
 	{
 		posicion=ran()%53;
-		*(temporal + posicion)=*(baraja->carta + i);
+		*(temporal + posicion)=*(baraja->dato + i);
 	}
 
-	free(baraja->carta);
-	baraja->carta=temporal;
+	free(baraja->dato);
+	baraja->dato=temporal;
 }
 
 void repartir(struct Baraja *baraja)
 {
-	printf("%s ", baraja->carta[baraja->cima]);
+	printf("%s ", cartas->cnombre[baraja->cima]);
 	baraja->cima--;
 }
 
@@ -39,61 +77,69 @@ int main()
 {
 	struct Baraja *baraja=NULL;
 	baraja=(struct Baraja*)malloc(sizeof(struct Baraja));
-
 	baraja->cima=0;  
 
-	cartas(baraja, "As de picas");
-	cartas(baraja, "2 de picas");
-	cartas(baraja, "3 de picas");
-	cartas(baraja, "4 de picas");
-	cartas(baraja, "5 de picas");
-	cartas(baraja, "6 de picas");
-	cartas(baraja, "7 de picas");
-	cartas(baraja, "8 de picas");
-	cartas(baraja, "9 de picas");
-	cartas(baraja, "10 de picas");
-	cartas(baraja, "J de picas");
-	cartas(baraja, "Q de picas");
-	cartas(baraja, "K de picas");
-	cartas(baraja, "As de corazones");
-	cartas(baraja, "2 de corazones");
-	cartas(baraja, "3 de corazones");
-	cartas(baraja, "4 de corazones");
-	cartas(baraja, "5 de corazones");
-	cartas(baraja, "6 de corazones");
-	cartas(baraja, "7 de corazones");
-	cartas(baraja, "8 de corazones");
-	cartas(baraja, "9 de corazones");
-	cartas(baraja, "10 de corazones");
-	cartas(baraja, "J de corazones");
-	cartas(baraja, "Q de corazones");
-	cartas(baraja, "K de corazones");
-	cartas(baraja, "As de diamantes");
-	cartas(baraja, "2 de diamantes");
-	cartas(baraja, "3 de diamantes");
-	cartas(baraja, "4 de diamantes");
-	cartas(baraja, "5 de diamantes");
-	cartas(baraja, "6 de diamantes");
-	cartas(baraja, "7 de diamantes");
-	cartas(baraja, "8 de diamantes");
-	cartas(baraja, "9 de diamantes");
-	cartas(baraja, "10 de diamantes");
-	cartas(baraja, "J de diamantes");
-	cartas(baraja, "Q de diamantes");
-	cartas(baraja, "K de diamantes");
-	cartas(baraja, "As de treboles");
-	cartas(baraja, "2 de treboles");
-	cartas(baraja, "3 de treboles");
-	cartas(baraja, "4 de treboles");
-	cartas(baraja, "5 de treboles");
-	cartas(baraja, "6 de treboles");
-	cartas(baraja, "7 de treboles");
-	cartas(baraja, "8 de treboles");
-	cartas(baraja, "9 de treboles");
-	cartas(baraja, "10 de treboles");
-	cartas(baraja, "J de treboles");
-	cartas(baraja, "Q de treboles");
-	cartas(baraja, "K de treboles");
+	struct Lista *cartas=NULL;
+	cartas=(struct Lista*)malloc(sizeof(struct Lista));	
+	cartas->fin=0;  
+
+	agregarCartas(cartas, "As de picas");
+	agregarCartas(cartas, "2 de picas");
+	agregarCartas(cartas, "3 de picas");
+	agregarCartas(cartas, "4 de picas");
+	agregarCartas(cartas, "5 de picas");
+	agregarCartas(cartas, "6 de picas");
+	agregarCartas(cartas, "7 de picas");
+	agregarCartas(cartas, "8 de picas");
+	agregarCartas(cartas, "9 de picas");
+	agregarCartas(cartas, "10 de picas");
+	agregarCartas(cartas, "J de picas");
+	agregarCartas(cartas, "Q de picas");
+	agregarCartas(cartas, "K de picas");
+	agregarCartas(cartas, "As de corazones");
+	agregarCartas(cartas, "2 de corazones");
+	agregarCartas(cartas, "3 de corazones");
+	agregarCartas(cartas, "4 de corazones");
+	agregarCartas(cartas, "5 de corazones");
+	agregarCartas(cartas, "6 de corazones");
+	agregarCartas(cartas, "7 de corazones");
+	agregarCartas(cartas, "8 de corazones");
+	agregarCartas(cartas, "9 de corazones");
+	agregarCartas(cartas, "10 de corazones");
+	agregarCartas(cartas, "J de corazones");
+	agregarCartas(cartas, "Q de corazones");
+	agregarCartas(cartas, "K de corazones");
+	agregarCartas(cartas, "As de diamantes");
+	agregarCartas(cartas, "2 de diamantes");
+	agregarCartas(cartas, "3 de diamantes");
+	agregarCartas(cartas, "4 de diamantes");
+	agregarCartas(cartas, "5 de diamantes");
+	agregarCartas(cartas, "6 de diamantes");
+	agregarCartas(cartas, "7 de diamantes");
+	agregarCartas(cartas, "8 de diamantes");
+	agregarCartas(cartas, "9 de diamantes");
+	agregarCartas(cartas, "10 de diamantes");
+	agregarCartas(cartas, "J de diamantes");
+	agregarCartas(cartas, "Q de diamantes");
+	agregarCartas(cartas, "K de diamantes");
+	agregarCartas(cartas, "As de treboles");
+	agregarCartas(cartas, "2 de treboles");
+	agregarCartas(cartas, "3 de treboles");
+	agregarCartas(cartas, "4 de treboles");
+	agregarCartas(cartas, "5 de treboles");
+	agregarCartas(cartas, "6 de treboles");
+	agregarCartas(cartas, "7 de treboles");
+	agregarCartas(cartas, "8 de treboles");
+	agregarCartas(cartas, "9 de treboles");
+	agregarCartas(cartas, "10 de treboles");
+	agregarCartas(cartas, "J de treboles");
+	agregarCartas(cartas, "Q de treboles");
+	agregarCartas(cartas, "K de treboles");
+
+	for(int i=0;i<=52;i++)
+	{
+		posiciones(baraja, i);	
+	}
 
 
 	return 0;
