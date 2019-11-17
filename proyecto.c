@@ -4,33 +4,36 @@
 typedef struct BlackJack 
 {
 	char *nombre, *carta;
-    int *puntos, *Suma;
-	struct nodo *siguiente;
+    int *players, *puntos, *Suma;
+	struct BlackJack *siguiente;
 }Turnos;
 
 Turnos *CrearNodo(int valor)
 {
 	Turnos *newNode = (Turnos *) malloc (sizeof(Turnos));
-	newNode -> data = nombre;
-	newNode ->siguiente = NULL;
+	newNode->players = valor;
+	newNode->siguiente = NULL;
 	return newNode;
 }
 
-Turnos *Partida (int numPLayer, int alias, int nomCarta, int points, int Z)
+Turnos *newPartida (int numPLayer)
 {
-	Turnos *head = NULL;
+	Turnos *primero = NULL;
 	Turnos *newNode = NULL;
 	int i;
-	for (i=0; i<=numPLayer; i++)
+	char nom;
+	for (i=1; i<=numPLayer; i++)
 	{
-		newNode = CrearNodo (i);
-		if (head == NULL)
+		printf ("Cual es el nombre o el alias del jugador %d",i);
+		scanf ("%c",&nom)
+		newNode = CrearNodo (nom);
+		if (primero == NULL)
 		{
-			head = newNode;
+			primero = newNode;
 		}
 		else
 		{
-			Turnos *turnoActual = head;
+			Turnos *turnoActual = primero;
 			while (turnoActual -> siguiente != NULL)
 			{
 				turnoActual = turnoActual->siguiente;
@@ -38,7 +41,7 @@ Turnos *Partida (int numPLayer, int alias, int nomCarta, int points, int Z)
 			turnoActual -> siguiente = newNode;
 		}
 	}
-	return head;
+	return primero;
 }
 
 void Imprimir(Turnos *list)
@@ -46,11 +49,29 @@ void Imprimir(Turnos *list)
 	Turnos *turnoActual = list;
 	while (turnoActual->siguiente != NULL)
 	{
-		
+		printf ("%d",turnoActual->players);
+		turnoActual = turnoActual->siguiente;
 	}
 }
+
 int main ()
 {
+	int opMenu=0, numPLayer;
+	printf ( " *********Menú Principal*********\ n " );
+	printf ( " 1.Nuevo Juego \ n " );
+	printf ( " 2.Salir \ n " );
+	scanf("%d",&opMenu);
+	switch (opMenu)
+	{
+		case 1: printf ("Dime el numero de jugadores (1-6)");
+				scanf ("%d", &numPLayer);
+				Turnos *myList = newPartida(numPLayer);
+   				printList(myList);
+    			printf("\n\n");
+		break;
+		case 2: exit (-1);
+		break;
+	}
 	 
 } 
  
