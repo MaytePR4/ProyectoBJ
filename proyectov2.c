@@ -8,15 +8,47 @@ typedef struct BlackJack
 	struct BlackJack *siguiente;
 }Turnos;
 
-Turnos *CrearNodo(int valor)
+Turnos *CrearNodo(Turnos **lista, int valor)
 {
+	Turnos *aux=*lista;
+	
+	while(aux->siguiente!=*lista)
+	{
+		aux=aux->siguiente;
+	}
+	
 	Turnos *newNode = (Turnos *) malloc (sizeof(Turnos));
-	newNode->players = valor;
-	newNode->siguiente = NULL;
-	return newNode;
+	if(newNode==NULL)
+	{
+		return 0;
+	}
+	
+	newNode->players=valor;
+	
+	if(*lista==NULL)
+	{
+		*lista=newNode;
+		aux->siguiente=newNode;
+	}
+	else
+		{
+			if(aux!=*lista)
+			{
+				aux->siguiente=newNode;
+				newNode->siguiente=*lista;
+				*lista=newNode;
+			}
+			else
+			{
+				aux->siguiente=newNode;
+				*lista=newNode;
+			}
+		}
+
+	return 0;
 }
 
-Turnos *newPartida (int numPLayer)
+Turnos *newPartida ( int numPLayer)
 {
 	Turnos *primero = NULL;
 	Turnos *newNode = NULL;
@@ -25,7 +57,7 @@ Turnos *newPartida (int numPLayer)
 	for (i=1; i<=numPLayer; i++)
 	{
 		printf ("Cual es el nombre o el alias del jugador %d",i);
-		scanf ("%c",&nom)
+		scanf ("%c",&nom);
 		newNode = CrearNodo (nom);
 		if (primero == NULL)
 		{
